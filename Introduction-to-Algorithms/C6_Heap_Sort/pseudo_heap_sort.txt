@@ -1,0 +1,37 @@
+/*max heap, A[parent] >= A[children]*/
+
+//to maintain single node's position
+MAX-HEAPIFY(A,i)
+    l = LEFT(i)
+    r = RIGHT(i)
+
+    if l<=A.heap_size and A[l]>A[i]
+        largest = l
+    else
+        largest = i
+
+    if r<=A.heap_size and A[r]>A[largest]
+        largest = r
+
+    if largest != i
+        exchange A[i] with A[largest]
+
+    MAX-HEAPIFY(A,largest)
+
+//build heap from array
+//only first A.length/2 has children, and need to be sorted
+BUILD-MAX-HEAP(A)
+    A.heap_size = A.length
+    for i = A.length/2 downto 1
+        MAX-HEAPIFY(A,i)
+
+
+//get a max heap first, root is the largest 
+//then exchange the last to the root, the last is the largest
+//then place the root to correct location
+HEAPSORT(A)
+    BUILD-MAX-HEAP(A)
+    for i = A.length downto 2
+        exchange A[1] with A[i]
+        A.heap_size = A.heap_size-1
+        MAX-HEAPIFY(A,1)
